@@ -9,9 +9,9 @@ mask_dir = ""
 
 def data_generator(img_list, bs):
     dataset = tf.data.Dataset.from_tensor_slices(img_list)
+    dataset = dataset.shuffle(2010, reshuffle_each_iteration=True)
     dataset = dataset.map(load_data, num_parallel_calls=tf.data.AUTOTUNE)
     dataset = dataset.batch(bs, drop_remainder=False)
-    dataset = dataset.shuffle(2010, reshuffle_each_iteration=True)
     return dataset
 
 def load_data(img_name):
